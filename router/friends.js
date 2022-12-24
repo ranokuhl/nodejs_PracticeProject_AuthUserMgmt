@@ -30,13 +30,20 @@ router.get('/', (req, res) => {
 // GET by specific ID request: Retrieve a single friend with email ID
 router.get('/:email', (req, res) => {
 	// Update the code here
-	res.send('Yet to be implemented') //This line is to be replaced with actual return value
+	const email = req.params.email
+	res.send(friends[email]) //This line is to be replaced with actual return value
 })
 
 // POST request: Add a new friend
 router.post('/', (req, res) => {
-	// Update the code here
-	res.send('Yet to be implemented') //This line is to be replaced with actual return value
+	if (req.body.email) {
+		friends[req.body.email] = {
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			DOB: req.body.DOB,
+		}
+	}
+	res.send('The user' + ' ' + req.body.firstName + ' Has been added!')
 })
 
 // PUT request: Update the details of a friend with email id
