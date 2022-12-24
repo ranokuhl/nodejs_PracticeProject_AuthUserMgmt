@@ -3,7 +3,12 @@ const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const routes = require('./router/friends.js')
 
-let users = []
+let users = [
+	{
+		username: 'rano',
+		password: '123',
+	},
+]
 
 const doesExist = username => {
 	let userswithsamename = users.filter(user => {
@@ -87,11 +92,9 @@ app.post('/register', (req, res) => {
 	if (username && password) {
 		if (!doesExist(username)) {
 			users.push({username: username, password: password})
-			return res
-				.status(200)
-				.json({
-					message: 'User successfully registred. Now you can login',
-				})
+			return res.status(200).json({
+				message: 'User successfully registred. Now you can login',
+			})
 		} else {
 			return res.status(404).json({message: 'User already exists!'})
 		}
